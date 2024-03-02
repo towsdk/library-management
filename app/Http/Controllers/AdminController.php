@@ -15,11 +15,16 @@ class AdminController extends Controller
     public function index(){
         if(Auth::id()){
             $usertype = Auth()->user()->usertype;
-            if($usertype == 'user'){
+            if($usertype == 'admin'){
+                $users = User::all()->count();
+                $books = Book::all()->count();
+                $borrows = Borrow::where('status','Applied')->count();
+                $returned = Borrow::where('status','returned')->count();
+                
+                return view('admin.index', compact( 'users', 'books', 'borrows', 'returned'));
+            }elseif($usertype == 'user'){
                 $books = Book::all();
-                return view('home.index', compact('books'));
-            }elseif($usertype == 'admin'){
-                return view('admin.index');    
+                return view('home.index', compact('books'));    
             }
         }else{
             return redirect()->back();

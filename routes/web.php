@@ -32,7 +32,13 @@ route::get('/edit_book/{id}', [AdminController::class, 'edit_book'])->name('edit
 route::post('/update_book/{id}', [AdminController::class, 'update_book'])->name('update_book');
 route::get('/book_details/{id}', [HomeController::class, 'book_details'])->name('book_details');
 route::get('/borrow_books/{id}', [HomeController::class, 'borrow_books'])->name('borrow_books');
-route::get('/borrow_request', [AdminController::class, 'borrow_request'])->name('borrow_request');
+route::get('/borrow_request', [AdminController::class, 'borrow_request'])->name('borrow_request')
+->middleware(['auth', 'admin']);
 route::get('/approved_book/{id}', [AdminController::class, 'approved_book'])->name('approved_book');
 route::get('/returned/{id}', [AdminController::class, 'returned'])->name('returned');
 route::get('/rejected/{id}', [AdminController::class, 'rejected'])->name('rejected');
+route::get('/book_history', [HomeController::class, 'book_history'])->name('book_history');
+route::get('/cancel_req/{id}', [HomeController::class, 'cancel_req'])->name('cancel_req');
+route::get('/explore', [HomeController::class, 'explore'])->name('explore');
+route::get('/search', [HomeController::class, 'search'])->name('search');
+route::get('/cat_search/{id}', [HomeController::class, 'cat_search'])->name('cat_search');
